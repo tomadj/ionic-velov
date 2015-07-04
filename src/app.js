@@ -4,7 +4,7 @@ require('angular-sanitize');
 require('ionic-framework');
 require('angular-ui-router');
 require('angular-animate');
-//require('ng-cordova');
+require('ng-cordova');
 
 // Application routing and startup
 var Router  = require('./router');
@@ -18,7 +18,8 @@ require('./components/menu/menu');
 var app = angular.module('app', [
 	'ionic',
 	'app.menu',
-	'app.velov'
+	'app.velov',
+	'ngCordova'
 ]);
 
 // application routing configuration
