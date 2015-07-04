@@ -1,0 +1,8 @@
+{
+  "name": "ionic-maps",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "build",
+    "watch"
+  ]
+}
