@@ -28,6 +28,8 @@ MapsCtrl.prototype.mapCreated = function (map) {
 			
 			var lat = data[i][8];
 			var long = data[i][9];
+			
+			
 			marker = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, long),
 				map: self.map
@@ -37,13 +39,22 @@ MapsCtrl.prototype.mapCreated = function (map) {
 			
 			google.maps.event.addListener(marker, 'click',(function (marker, i) {
 				return function () {
-					infowindow.setContent('toto');
+					var name = data[i][1];
+					var availableBikes = data[i][13];
+					var availableBikeStands = data[i][12];
+					var content = '<h3>'+name+'</h3>';
+					 content += '<h4>Places : '+availableBikeStands+'</h4>';
+					  content += '<h4>Velos : '+availableBikes+'</h4>';
+					infowindow.setContent(content);
 					infowindow.open(self.map, marker);
 				}
 			})(marker, i));
 		}
 			marker.setMap(self.map);
+			
 	});
+	
+	self.centerOnMe();
 };
 
 /**
