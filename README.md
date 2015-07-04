@@ -1,5 +1,5 @@
-# ionic-maps
-ionic browserify / npm workflow maps template
+# ionic-velov
+Ionic Velov station application
 
 Requirements
 ------------
