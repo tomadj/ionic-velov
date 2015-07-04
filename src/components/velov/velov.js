@@ -11,7 +11,7 @@ var VelovService = require('./services/velovService')
 var velov = angular.module('app.velov', []);
 velov.service('VelovService',['$http', VelovService]);
 velov.controller('MapsCtrl', ['$ionicLoading','VelovService', MapsCtrl]);
-velov.controller('ListCtrl', ['$ionicLoading','VelovService', ListCtrl]);
+velov.controller('ListCtrl', ['$ionicLoading','VelovService','$scope', ListCtrl]);
 velov.directive('map', [mapDirective]);
 
 module.exports = velov;

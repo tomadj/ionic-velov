@@ -1,8 +1,9 @@
 <ion-view title="List">
 	<ion-nav-buttons side="right">
-		<button class="button button-icon icon ion-android-locate"></button>
+		<button class="button button-icon icon ion-refresh" ng-click="vm.refresh();"></button>
 	</ion-nav-buttons>
 	<ion-content>
+		<ion-refresher pulling-text="Pull to refresh" on-refresh="vm.refresh();"></ion-refresher>
 		<ion-list>
 			<ion-item ng-repeat="station in vm.data" item="station" href="#" class="">
 			{{station[1]}}
