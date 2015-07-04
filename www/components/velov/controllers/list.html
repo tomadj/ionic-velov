@@ -1,0 +1,21 @@
+<ion-view title="List">
+	<ion-nav-buttons side="right">
+		<button class="button button-icon icon ion-android-locate"></button>
+	</ion-nav-buttons>
+	<ion-content>
+		<ion-list>
+			<ion-item ng-repeat="station in vm.data" item="station" href="#" class="">
+			{{station[1]}}
+			<br/>
+				<span class="item-info">Places : {{station[12]}}</span>
+				<span class="item-info">Vélos : {{station[13]}}</span>
+				<!-- <ion-option-button class="button-calm" ng-click="onEditNego(nego.id)">
+				Modifier
+				</ion-option-button>
+				<ion-option-button class="button-assertive" ng-click="onDeleteNego(nego.id)">
+				Supprimer
+				</ion-option-button>-->
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

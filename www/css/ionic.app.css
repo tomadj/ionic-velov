@@ -6867,3 +6867,7 @@ map {
 
 .scroll {
   height: 100%; }
+
+.item-info {
+  color: #aaa;
+  font-size: 14px; }

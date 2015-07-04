@@ -6,30 +6,34 @@
 function Router($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-  .state('app', {
+    .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'components/menu/controllers/menu.html',
     controller: 'MenuCtrl as vm'
   })
-  
-  .state('app.map', {
+
+    .state('app.map', {
     url: '/map',
     views: {
       'menuContent': {
-        templateUrl: 'components/maps/controllers/maps.html',
+        templateUrl: 'components/velov/controllers/maps.html',
         controller: 'MapsCtrl as vm'
       }
     }
   })
 
-  .state('list', {
+    .state('app.list', {
     url: '/list',
-    templateUrl: 'components/home/controllers/home.html',
-    controller: 'HomeCtrl as vm'
+    views: {
+      'menuContent': {
+        templateUrl: 'components/velov/controllers/list.html',
+        controller: 'ListCtrl as vm'
+      }
+    }
   });
 
-  $urlRouterProvider.otherwise('/app/map');
+  $urlRouterProvider.otherwise('/app/list');
 }
 
 module.exports = Router;

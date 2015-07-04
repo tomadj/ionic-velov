@@ -11,14 +11,14 @@ var Router  = require('./router');
 var startUp = require('./startUp');
 
 // Application modules
-require('./components/maps/maps');
+require('./components/velov/velov');
 require('./components/menu/menu');
 
 // application definition
 var app = angular.module('app', [
 	'ionic',
 	'app.menu',
-	'app.maps'
+	'app.velov'
 ]);
 
 // application routing configuration
