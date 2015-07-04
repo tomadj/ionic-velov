@@ -1,11 +1,24 @@
 <ion-view title="List">
+	
 	<ion-nav-buttons side="right">
 		<button class="button button-icon icon ion-refresh" ng-click="vm.refresh();"></button>
 	</ion-nav-buttons>
 	<ion-content>
+	<div class="list">
+
+  <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" ng-model="vm.search" placeholder="Search">
+    </label>
+  
+  </div>
+
+</div>
+
 		<ion-refresher pulling-text="Pull to refresh" on-refresh="vm.refresh();"></ion-refresher>
 		<ion-list>
-			<ion-item ng-repeat="station in vm.data" item="station" href="#" class="">
+			<ion-item ng-repeat="station in vm.data | filter:vm.search" item="station" href="#" class="">
 			{{station[1]}}
 			<br/>
 				<span class="item-info">Places : {{station[12]}}</span>
