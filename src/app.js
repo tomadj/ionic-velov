@@ -6,6 +6,7 @@ require('angular-ui-router');
 require('angular-animate');
 require('ng-cordova');
 
+
 // Application routing and startup
 var Router  = require('./router');
 var startUp = require('./startUp');
