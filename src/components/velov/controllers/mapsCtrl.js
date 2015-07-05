@@ -3,16 +3,18 @@
 var _$ionicLoading;
 var _VelovService;
 var _$cordovaGeolocation;
+var _ = require('lodash');
+
 // Maps controller class
-function MapsCtrl($ionicLoading, VelovService, $cordovaGeolocation) {
+function MapsCtrl($ionicLoading, VelovService, $cordovaGeolocation,$state) {
 	var self = this;
 	this.map = null;
+	
 	_$ionicLoading = $ionicLoading;
 	_$cordovaGeolocation = $cordovaGeolocation;
 	_VelovService = VelovService;
-
-
-
+	
+	self.stationId = $state.params.stationId;
 }
 
 /**
@@ -22,14 +24,13 @@ MapsCtrl.prototype.mapCreated = function (map) {
 	var self = this;
 	self.map = map;
 	_VelovService.getData().success(function (result) {
-		var data = result.values;
+		self.data = result.values;
 
 		var marker, i;
-		for (i = 0; i < data.length; i++) {
+		for (i = 0; i < self.data.length; i++) {
 
-			var lat = data[i][8];
-			var long = data[i][9];
-
+			var lat = self.data[i][8];
+			var long = self.data[i][9];
 
 			marker = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, long),
@@ -40,9 +41,9 @@ MapsCtrl.prototype.mapCreated = function (map) {
 
 			google.maps.event.addListener(marker, 'click',(function (marker, i) {
 				return function () {
-					var name = data[i][1];
-					var availableBikes = data[i][13];
-					var availableBikeStands = data[i][12];
+					var name = self.data[i][1];
+					var availableBikes = self.data[i][13];
+					var availableBikeStands = self.data[i][12];
 					var content = '<h3>' + name + '</h3>';
 					content += '<h4>Places : ' + availableBikeStands + '</h4>';
 					content += '<h4>Velos : ' + availableBikes + '</h4>';
@@ -52,14 +53,19 @@ MapsCtrl.prototype.mapCreated = function (map) {
 			})(marker, i));
 		}
 		marker.setMap(self.map);
-		self.centerOnMe();
+		if(self.stationId)
+		{
+		 	self.centerOnStation(self.stationId);	
+			 
+		}
+		else {
+			self.centerOnMe();
+		}
 	});
-
-
 };
 
 /**
- * Centering command
+ * Centering on current position
  */
 MapsCtrl.prototype.centerOnMe = function () {
 	var self = this;
@@ -97,4 +103,19 @@ MapsCtrl.prototype.centerOnMe = function () {
 	}
 };
 
+/**
+ * Centering on current station
+ */
+MapsCtrl.prototype.centerOnStation = function (stationId) {
+	var self = this;
+
+    if (!self.map) {
+		return;
+    }
+	
+	var station = _.findWhere(self.data, { 0: stationId});
+	self.map.setCenter(new google.maps.LatLng(station[8], station[9]));
+	self.map.setZoom(16);
+	
+};
 module.exports = MapsCtrl;

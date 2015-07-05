@@ -2,15 +2,16 @@
 
 var _$ionicLoading;
 var _VelovService;
+var _$cordovaGeolocation;
 var _ = require('lodash');
 
 // Maps controller class
-function ListCtrl($ionicLoading, VelovService, $scope) {
+function ListCtrl($ionicLoading, VelovService, $scope,$cordovaGeolocation) {
 	var self = this;
 	self.scope = $scope;
 	_$ionicLoading = $ionicLoading;
 	_VelovService = VelovService;
-
+	_$cordovaGeolocation = $cordovaGeolocation;
 	self.getData();
 }
 
@@ -25,7 +26,6 @@ ListCtrl.prototype.getData = function () {
 	if (isWebView) {
 		var posOptions = { timeout: 10000, enableHighAccuracy: false };
 		_$cordovaGeolocation.getCurrentPosition(posOptions).then(function (pos) {
-
 			self.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 			_VelovService.getData().success(function (result) {
 				self.data = self.sortByDistance(self.position, result.values);

@@ -14,7 +14,7 @@ function Router($stateProvider, $urlRouterProvider) {
   })
 
     .state('app.map', {
-    url: '/map',
+    url: '/map/:stationId',
     views: {
       'menuContent': {
         templateUrl: 'components/velov/controllers/maps.html',
