@@ -1,34 +1,23 @@
 <ion-view title="List">
-	
 	<ion-nav-buttons side="right">
-		<button class="button button-icon icon ion-refresh" ng-click="vm.refresh();"></button>
+		<button class="button button-icon icon ion-refresh" ng-click="vm.refresh(true);"></button>
 	</ion-nav-buttons>
 	<ion-content>
-	<div class="list">
-
-  <div class="item item-input-inset">
-    <label class="item-input-wrapper">
-      <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" ng-model="vm.search" placeholder="Search">
-    </label>
-  
-  </div>
-
-</div>
-
-		<ion-refresher pulling-text="Pull to refresh" on-refresh="vm.refresh();"></ion-refresher>
+		<div class="list">
+			<div class="item item-input-inset">
+				<label class="item-input-wrapper">
+					<i class="icon ion-search placeholder-icon"></i>
+					<input type="text" ng-model="vm.search" placeholder="Search">
+				</label>
+			</div>
+		</div>
+		<ion-refresher pulling-text="Pull to refresh" on-refresh="vm.refresh(false);"></ion-refresher>
 		<ion-list>
-			<ion-item ng-repeat="station in vm.data | filter:vm.search" item="station" href="#" class="">
-			{{station[1]}}
-			<br/>
+			<ion-item ng-repeat="station in vm.data | filter:vm.search" item="station" href="#" class="">{{station[1]}}
+				<br/>
 				<span class="item-info">Places : {{station[12]}}</span>
 				<span class="item-info">Vélos : {{station[13]}}</span>
-				<!-- <ion-option-button class="button-calm" ng-click="onEditNego(nego.id)">
-				Modifier
-				</ion-option-button>
-				<ion-option-button class="button-assertive" ng-click="onDeleteNego(nego.id)">
-				Supprimer
-				</ion-option-button>-->
+				<span class="item-note">{{station[20] | number : 0}} m</span>
 			</ion-item>
 		</ion-list>
 	</ion-content>
