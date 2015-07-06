@@ -24,7 +24,7 @@ ListCtrl.prototype.getData = function () {
 
 	var isWebView = ionic.Platform.isWebView();
 	if (isWebView) {
-		var posOptions = { timeout: 10000, enableHighAccuracy: false };
+		var posOptions = { timeout: 10000, enableHighAccuracy: true, maximumAge:5000 };
 		_$cordovaGeolocation.getCurrentPosition(posOptions).then(function (pos) {
 			self.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 			_VelovService.getData().success(function (result) {
