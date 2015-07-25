@@ -13,12 +13,12 @@
 		</div>
 		<ion-refresher pulling-text="Pull to refresh" on-refresh="vm.refresh(false);"></ion-refresher>
 		<ion-list>
-			<ion-item ng-repeat="station in vm.data | filter:vm.search" item="station"  href="#/app/map/{{station[0]}}"  class="">
-				{{station[1]}}
+			<ion-item ng-repeat="station in vm.data | filter:vm.search" item="station"  href="#/app/map/{{station.idkey}}"  class="">
+				{{station.name}}
 				<br/>
-				<span class="item-info">Places : {{station[12]}}</span>
-				<span class="item-info">Vélos : {{station[13]}}</span>
-				<span class="item-note">{{station[20] | number : 0}} m</span>
+				<span class="item-info">Places : {{station.availableBikes}}</span>
+				<span class="item-info">Vélos : {{station.availableBikeStands}}</span>
+				<span class="item-note">{{station.distance | number : 0}} m</span>
 			</ion-item>
 		</ion-list>
 	</ion-content>

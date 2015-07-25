@@ -7,8 +7,7 @@ var buffer      = require('vinyl-buffer');
 // build src
 gulp.task('browserify', function(cb){	
  	return browserify('./src/app.js', {
-            debug: true,
-            //transform: ['debowerify']
+            debug: true 
         })
         .bundle()
         .pipe(source('bundle.js'))

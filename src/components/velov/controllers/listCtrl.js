@@ -1,18 +1,17 @@
 'use strict';
 
+var _ = require('lodash');
 var _$ionicLoading;
 var _VelovService;
-var _$cordovaGeolocation;
-var _ = require('lodash');
 
 // Maps controller class
-function ListCtrl($ionicLoading, VelovService, $scope,$cordovaGeolocation) {
-	var self = this;
-	self.scope = $scope;
+function ListCtrl($ionicLoading, VelovService, $scope) {
 	_$ionicLoading = $ionicLoading;
 	_VelovService = VelovService;
-	_$cordovaGeolocation = $cordovaGeolocation;
-	self.getData();
+
+	this.position = {};
+	this.scope = $scope;
+	this.getData();
 }
 
 /**
@@ -22,43 +21,25 @@ ListCtrl.prototype.getData = function () {
 	var self = this;
 	_$ionicLoading.show();
 
-	var isWebView = ionic.Platform.isWebView();
-	if (isWebView) {
-		var posOptions = { timeout: 10000, enableHighAccuracy: true, maximumAge:5000 };
-		_$cordovaGeolocation.getCurrentPosition(posOptions).then(function (pos) {
-			self.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-			_VelovService.getData().success(function (result) {
-				self.data = self.sortByDistance(self.position, result.values);
-				_$ionicLoading.hide();
-			});
-		}, function (error) {
-				alert('Unable to get location: ' + error.message);
-			});
-	}
-	else {
-		navigator.geolocation.getCurrentPosition(function (pos) {
+	_VelovService.getCurrentPosition().then(function (pos) {
+		self.position = pos;
+		_VelovService.getData().then(function (stations) {
+			self.data = self.sortByDistance(self.position, stations);
+			_$ionicLoading.hide();
+		});
+	});
 
-			self.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-			_VelovService.getData().success(function (result) {
-				self.data = self.sortByDistance(self.position, result.values);
-				_$ionicLoading.hide();
-			});
-
-		}, function (error) {
-				alert('Unable to get location: ' + error.message);
-			});
-	}
 };
-
 
 ListCtrl.prototype.sortByDistance = function (position, list) {
 	list.forEach(function (station) {
-		var stationLocation = new google.maps.LatLng(station[8], station[9]);
-		var distance = google.maps.geometry.spherical.computeDistanceBetween(position, stationLocation);
-		station[20] = distance;
+		var loc = new google.maps.LatLng(station.latitude, station.longitude);
+		var myLoc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var distance = google.maps.geometry.spherical.computeDistanceBetween(myLoc, loc);
+		station.distance = distance;
 	}, this);
 
-	return _.sortBy(list, 20);
+	return _.sortBy(list, 'distance');
 };
 
 /**
@@ -66,17 +47,22 @@ ListCtrl.prototype.sortByDistance = function (position, list) {
  */
 ListCtrl.prototype.refresh = function (showLoading) {
 	var self = this;
+
 	if (showLoading) {
 		_$ionicLoading.show();
 	}
-	_VelovService.getData().success(function (result) {
-		self.data = self.sortByDistance(self.position, result.values);
-		if (showLoading) {
-			_$ionicLoading.hide();
-		}
-		else {
-			self.scope.$broadcast('scroll.refreshComplete');
-		}
+
+	_VelovService.getCurrentPosition().then(function (pos) {
+		self.position = pos;
+		_VelovService.getData().then(function (stations) {
+			self.data = self.sortByDistance(self.position, stations);
+			if (showLoading) {
+				_$ionicLoading.hide();
+			}
+			else {
+				self.scope.$broadcast('scroll.refreshComplete');
+			}
+		});
 	});
 };
 
