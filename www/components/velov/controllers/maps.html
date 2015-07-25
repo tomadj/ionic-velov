@@ -3,6 +3,10 @@
         <button class="button button-icon icon ion-android-locate" ng-click="vm.centerOnMe()"></button>
     </ion-nav-buttons>
     <ion-content scroll="false">
-        <map on-create="vm.mapCreated(map)"></map>
+        <!--<map on-create="vm.mapCreated(map)"></map>-->
+        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' style="height: 500px;">
+              <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'" click="onMarkerClicked">
+            </ui-gmap-markers>    
+        </ui-gmap-google-map>
     </ion-content>
 </ion-view>

@@ -8,7 +8,7 @@ var _ = require('lodash');
 // Maps controller class
 function MapsCtrl($ionicLoading, VelovService, $cordovaGeolocation,$state) {
 	var self = this;
-	this.map = null;
+	this.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 	
 	_$ionicLoading = $ionicLoading;
 	_$cordovaGeolocation = $cordovaGeolocation;
@@ -20,9 +20,9 @@ function MapsCtrl($ionicLoading, VelovService, $cordovaGeolocation,$state) {
 /**
  * map created event
  */
-MapsCtrl.prototype.mapCreated = function (map) {
+MapsCtrl.prototype.init = function () {
 	var self = this;
-	self.map = map;
+
 	_VelovService.getData().success(function (result) {
 		self.data = result.values;
 
