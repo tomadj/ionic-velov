@@ -64,7 +64,7 @@ MapsCtrl.prototype.centerOnStation = function (stationId) {
  * handle marker click
  */
 MapsCtrl.prototype.onMarkerClick = function (gmarker, event, marker){
-
+	console.log('not implemented yet');
 };
 
 module.exports = MapsCtrl;

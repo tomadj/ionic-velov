@@ -3,24 +3,16 @@
         <button class="button button-icon icon ion-android-locate" ng-click="vm.center()"></button>
     </ion-nav-buttons>
     <ion-content scroll="false">
-        <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'>
-              <ui-gmap-markers 
-                  models="vm.stations" 
-                  coords="'self'" 
-                  icon="'icon'" 
-                  labelContent="'test'"
-                  click="vm.onMarkerClick"
-                  idkey="'idkey'">
-                  
-                <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
-                    <div ng-non-bindable>
-                        <h5>{{name}}</h5>
-                        <h5 class="balanced">Vélos :{{ availableBikes }}</h5>
-                        <h5 class="assertive">Places: {{ availableBikeStands }}</h5>
-                    </div>
-                </ui-gmap-windows>
-                
-            </ui-gmap-markers>  
-        </ui-gmap-google-map>
+            <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' data-tap-disabled="true">
+                <ui-gmap-markers models="vm.stations" coords="'self'" icon="'icon'" labelContent="'test'" click="vm.onMarkerClick" idkey="'idkey'">
+                    <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
+                        <div ng-non-bindable>
+                            <h5>{{name}}</h5>
+                            <h5 class="balanced">Vélos :{{ availableBikes }}</h5>
+                            <h5 class="assertive">Places: {{ availableBikeStands }}</h5>
+                        </div>
+                    </ui-gmap-windows>
+                </ui-gmap-markers>
+            </ui-gmap-google-map>
     </ion-content>
 </ion-view>

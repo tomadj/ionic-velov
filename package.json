@@ -1,5 +1,5 @@
 {
-  "name": "Velov",
+  "name": "Ionic Velov",
   "version": "1.0.0",
   "description": "An Ionic project",
   "dependencies": {
@@ -39,9 +39,7 @@
     "com.ionic.keyboard",
     "cordova-plugin-geolocation"
   ],
-  "cordovaPlatforms": [
-    "ios"
-  ],
+  "cordovaPlatforms": [],
   "browserify": {
     "transform": [
       "browserify-shim"

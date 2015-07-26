@@ -43,10 +43,10 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.microscope-mobile.ionic-maps"
+            "PACKAGE_NAME": "com.ionic-velov"
         },
         "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.microscope-mobile.ionic-maps"
+            "PACKAGE_NAME": "com.ionic-velov"
         }
     },
     "dependent_plugins": {}
